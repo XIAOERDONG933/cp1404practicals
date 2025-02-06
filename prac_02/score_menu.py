@@ -1,18 +1,43 @@
-import random
+"""
+Use menu to ask the user for a score and print the score status
+and stars
+"""
+MENU = """G - Get a valid score (must be 0-100 inclusive)
+P - Print result
+S - Show stars
+Q - Quit
+"""
+
+def main():
+    print(MENU)
+    # Get a valid score
+    score = get_valid_score()
+    choice = input(">>> ").upper()
+    while choice != "Q":
+        if choice == "G":
+            score = get_valid_score()
+        elif choice == "P":
+            print(determine_score(score))
+        elif choice == "S":
+            print(score * "*")
+        else:
+            print("Invalid option")
+        print(MENU)
+        choice = input(">>> ").upper()
+    print("Goodbye")
+
 
 def get_valid_score():
-    while True:
-        try:
-            score = float(input("Please enter a score between 0 and 100: "))
-            if 0 <= score <= 100:
-                return score
-            else:
-                print("Invalid score, please ensure the score is between 0 and 100.")
-        except ValueError:
-            print("Invalid input, please enter a number.")
+    "Get a valid score"
+    score = int(input("Enter score: "))
+    while score < 0 or score > 100:
+        print("Invalid score")
+        score = int(input("Enter score: "))
+    return score
 
 
-def determine_grade(score):
+def determine_score(score):
+    """Determine score status"""
     if score < 0 or score > 100:
         return "Invalid score"
     elif score >= 90:
@@ -22,40 +47,4 @@ def determine_grade(score):
     else:
         return "Bad"
 
-def print_result(score):
-    grade = determine_grade(score)
-    print(f"Score: {score} → {grade}")
-
-def show_stars(score):
-    print("Stars: " + "*" * int(score))
-
-def display_menu():
-    print("\nMain Menu:")
-    print("G - Get valid score")
-    print("P - Print result")
-    print("S - Show stars")
-    print("Q - Quit")
-
-def main():
-    score = get_valid_score()
-
-    choice = ""
-
-    while choice != "Q":
-        display_menu()  # Display the menu
-        choice = input("Please enter your choice: ").upper()  # Get user choice and convert to uppercase
-
-        if choice == "G":
-            score = get_valid_score()
-        elif choice == "P":
-            print_result(score)
-        elif choice == "S":
-            show_stars(score)
-        elif choice == "Q":
-            print("Thank you for using! Goodbye!")
-        else:
-            print("Invalid input, please choose again.")
-
-
-if __name__ == "__main__":
-    main()
+main()
