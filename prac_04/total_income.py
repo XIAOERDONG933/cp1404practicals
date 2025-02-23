@@ -16,7 +16,6 @@ def main():
     print_report(incomes)
 
 
-
 def print_report(incomes):
     num_of_months = len(incomes)
     print("\nIncome Report\n-------------")
