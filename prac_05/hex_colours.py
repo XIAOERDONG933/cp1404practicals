@@ -3,7 +3,7 @@ COLOR_TO_CODE = {"Aqua": "#00ffff", "Absolute Zero": "#0048ba",
                  "Baby Pink": "#f4c2c2", "Bright Green": "#66ff00",
                  "Cadmium Yellow": "#fff600", "Carolina Blue": "#56a0d3",
                  "Cornsilk1": "#fff8dc", "DodgerBlue1": "#1e90ff"}
-COLOR_TO_CODE = {color.lower():code for color, code in COLOR_TO_CODE.items()}
+COLOR_TO_CODE = {color.lower(): code for color, code in COLOR_TO_CODE.items()}
 
 color = input("Enter a color name: ").lower()
 while color != "":
