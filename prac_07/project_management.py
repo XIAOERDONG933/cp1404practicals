@@ -94,7 +94,6 @@ def handle_update_projects(projects):
     for idx,project in enumerate(projects):
         print(f"{idx} {project}")
     choice = int(input("Project choice: "))
-    # TODO Error check the input choice
     current_project = projects[choice]
     print(current_project)
     set_project_info(current_project, 'percentage')
