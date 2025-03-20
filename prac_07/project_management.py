@@ -6,6 +6,7 @@ import datetime
 from project import Project
 
 FILENAME = 'projects.txt'
+HEADER = ['Name', 'Start Date', 'Priority', 'Cost Estimate', 'Completion Percentage']
 
 def main():
     print("Welcome to Pythonic Project Management")
@@ -17,7 +18,7 @@ def main():
         if choice == 'l': #load
             projects = handle_load_projects()
         elif choice == 's': #save
-            pass
+            handle_save_projects(projects)
         elif choice == 'd': #display
             handle_display_projects(projects)
         elif choice == 'f': #filter by date
@@ -114,11 +115,11 @@ def handle_add_project(projects):
     print("Let's add a new project")
     name = input("Name: ")
     start = input("Start date (dd/mm/yy): ")
-    formatted_start = convert_start_date(start)
+    converted_start = convert_start_date(start)
     priority = int(input("Priority: "))
     cost = float(input("Cost estimate： $ "))
     percentage = int(input("Percentage complete: "))
-    new_project = Project(name, start, priority, cost, percentage)
+    new_project = Project(name, converted_start, priority, cost, percentage)
     projects.append(new_project)
 
 
@@ -132,5 +133,22 @@ def handle_filter_project(projects):
             result_projects.append(project)
     for project in result_projects:
         print(project)
+
+def save_projects(projects, filename=FILENAME):
+    """Save projects to file"""
+    with open(filename,"w") as out_file:
+        out_file.write("\t".join(HEADER) + "\n")
+        for project in projects:
+            converted_start = project.start_date.strftime("%d/%m/%Y")
+            out_file.write(f"{project.name}\t{converted_start}\t"
+                           f"{project.priority}\t{project.cost}\t"
+                           f"{project.percentage}\n")
+
+
+def handle_save_projects(projects):
+    """Handle saving projects"""
+    filename = input("Filename: ")
+    save_projects(projects, filename)
+
 
 main()
