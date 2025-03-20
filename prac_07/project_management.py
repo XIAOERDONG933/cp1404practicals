@@ -10,6 +10,26 @@ def main():
     print("Welcome to Pythonic Project Management")
     projects = load_projects()
     print(f"Loaded {len(projects)} projects from {FILENAME}")
+    display_menu()
+    choice = input(">>> ").lower()
+    while choice != 'q':
+        if choice == 'l': #load
+            pass
+        elif choice == 's': #save
+            pass
+        elif choice == 'd': #display
+            pass
+        elif choice == 'f': #filter by date
+            pass
+        elif choice == 'a': #add
+            pass
+        elif choice == 'u': #update
+            pass
+        else:
+            print("Invalid choice")
+        display_menu()
+        choice = input(">>> ").lower()
+
 
 
 def load_projects(filename=FILENAME):
@@ -24,6 +44,17 @@ def load_projects(filename=FILENAME):
        projects.append(project)
     in_file.close()
     return projects
+
+
+def display_menu():
+    """Display menu"""
+    print("""- (L)oad projects  
+- (S)ave projects  
+- (D)isplay projects  
+- (F)ilter projects by date
+- (A)dd new project  
+- (U)pdate project
+- (Q)uit""")
 
 
 main()
