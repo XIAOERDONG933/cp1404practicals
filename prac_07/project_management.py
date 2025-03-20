@@ -15,7 +15,7 @@ def main():
     choice = input(">>> ").lower()
     while choice != 'q':
         if choice == 'l': #load
-            pass
+            projects = handle_load_projects()
         elif choice == 's': #save
             pass
         elif choice == 'd': #display
@@ -50,6 +50,12 @@ def load_projects(filename=FILENAME):
        projects.append(project)
     in_file.close()
     return projects
+
+
+def handle_load_projects():
+    """Handle loading projects from file"""
+    filename = input("Filename:")
+    return load_projects(filename)
 
 
 def display_menu():
