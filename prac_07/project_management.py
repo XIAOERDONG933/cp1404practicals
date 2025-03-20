@@ -22,7 +22,7 @@ def main():
         elif choice == 'f': #filter by date
             pass
         elif choice == 'a': #add
-            pass
+            handle_add_project(projects)
         elif choice == 'u': #update
             handle_update_projects(projects)
         else:
@@ -95,6 +95,18 @@ def set_project_info(project, info):
            project.set_percentage(int(new_info))
        elif info == 'priority':
            project.set_priority(int(new_info))
+
+
+def handle_add_project(projects):
+    """Handle adding new project"""
+    print("Let's add a new project")
+    name = input("Name: ")
+    start = input("Start date (dd/mm/yy): ")
+    priority = int(input("Priority: "))
+    cost = float(input("Cost estimate： $ "))
+    percentage = int(input("Percentage complete: "))
+    new_project = Project(name, start, priority, cost, percentage)
+    projects.append(new_project)
 
 
 

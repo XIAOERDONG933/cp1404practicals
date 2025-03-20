@@ -13,7 +13,7 @@ class Project:
 
     def __str__(self):
         return (f"{self.name}, start: {self.start_date}, priority: {self.priority}, estimated cost: {self.estimated_cost}, "
-                f"estimate: ${self.estimated_cost}, completion: {self.completion_percentage}%")
+                f"estimate: ${self.estimated_cost:.2f}, completion: {self.completion_percentage}%")
 
     def __lt__(self, other):
         return self.priority < other.priority
