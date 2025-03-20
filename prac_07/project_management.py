@@ -1,6 +1,6 @@
 """
-Estimated time:
-Actual time:
+Estimated time: 40 min
+Actual time: 60 min
 """
 from project import Project
 
@@ -24,7 +24,7 @@ def main():
         elif choice == 'a': #add
             pass
         elif choice == 'u': #update
-            pass
+            handle_update_projects(projects)
         else:
             print("Invalid choice")
         display_menu()
@@ -73,6 +73,29 @@ def handle_display_projects(projects):
     print("Complete projects:")
     for project in complete_projects:
         print(f"  {project}")
+
+
+def handle_update_projects(projects):
+    """Handle updating projects"""
+    for idx,project in enumerate(projects):
+        print(f"{idx} {project}")
+    choice = int(input("Project choice: "))
+    # TODO Error check the input choice
+    current_project = projects[choice]
+    print(current_project)
+    set_project_info(current_project, 'percentage')
+    set_project_info(current_project, 'priority')
+
+
+def set_project_info(project, info):
+    """Set new project new percentage or priority"""
+    new_info = input(f"New Project {info.title()}: ")
+    if info != '':
+       if info == 'percentage':
+           project.set_percentage(int(new_info))
+       elif info == 'priority':
+           project.set_priority(int(new_info))
+
 
 
 main()
