@@ -6,3 +6,14 @@ class Project:
         self.priority = priority
         self.estimated_cost = estimated_cost
         self.completion_percentage = completion_percentage
+
+    def is_complete(self):
+        """Determine if the project is complete."""
+        return self.completion_percentage == 100
+
+    def __str__(self):
+        return (f"{self.name}, start: {self.start_date}, priority: {self.priority}, estimated cost: {self.estimated_cost}, "
+                f"estimate: ${self.estimated_cost}, completion: {self.completion_percentage}%")
+
+    def __lt__(self, other):
+        return self.priority < other.priority

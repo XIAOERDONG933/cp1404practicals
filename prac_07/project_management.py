@@ -18,7 +18,7 @@ def main():
         elif choice == 's': #save
             pass
         elif choice == 'd': #display
-            pass
+            handle_display_projects(projects)
         elif choice == 'f': #filter by date
             pass
         elif choice == 'a': #add
@@ -55,6 +55,24 @@ def display_menu():
 - (A)dd new project  
 - (U)pdate project
 - (Q)uit""")
+
+def handle_display_projects(projects):
+    """Handle displaying projects"""
+    incomplete_projects = []
+    complete_projects = []
+    for project in projects:
+        if project.is_complete():
+            complete_projects.append(project)
+        else:
+            incomplete_projects.append(project)
+    complete_projects.sort()
+    incomplete_projects.sort()
+    print("Incomplete projects:")
+    for project in incomplete_projects:
+        print(f"  {project}")
+    print("Complete projects:")
+    for project in complete_projects:
+        print(f"  {project}")
 
 
 main()
