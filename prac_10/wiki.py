@@ -15,7 +15,7 @@ def main():
             suggestions =  wikipedia.search(title)
             print(suggestions)
         except PageError:
-        print(f"Page id \"{title}\" does not match any pages. Try another id!")
+            print(f"Page id \"{title}\" does not match any pages. Try another id!")
         print()
         title = input("Enter page title: ").strip()
     print("Thank you.")
