@@ -47,4 +47,5 @@ def determine_score(score):
     else:
         return "Bad"
 
+
 main()
