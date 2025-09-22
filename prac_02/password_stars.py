@@ -1,24 +1,24 @@
-"""
-A program that asks the user for a password, with error-checking to repeat
-if the password doesn't meet a minimum length set by a variable.
-The program should then print asterisks as long as the word.
-"""
-MIN_PASSWORD_LENGTH = 6
+"""This module implements a password checking program.
+It prompts the user to enter a password to verify if it meets the minimum length requirement,
+and then display a series of asterisks corresponding to the password length."""
+
+PASSWORD_LENGTH = 10
 
 def main():
+    """Obtain password, verify length, and display corresponding asterisk."""
     password = get_password()
-    print_password(password)
+    while len(password) < PASSWORD_LENGTH:
+        print(f'Password must be at least {PASSWORD_LENGTH} characters long.')
+        password = input('Enter a password: ')
+    show_stars(password)
 
-
-def print_password(password):
+def show_stars(password):
+    """Display asterisks indicating the corresponding number of passwords."""
     print("*" * len(password))
 
-
 def get_password():
-    password = input("Enter a password: ")
-    while len(password) < MIN_PASSWORD_LENGTH:
-        password = input(f"The password must be at least {MIN_PASSWORD_LENGTH} characters. Please enter again: ")
+    """Retrieve the password entered by the user."""
+    password = input(f'Enter a password (at least {PASSWORD_LENGTH} characters): ')
     return password
-
 
 main()
