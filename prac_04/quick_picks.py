@@ -1,16 +1,28 @@
 import random
 
-NUMBERS_PER_LINE = 6
-MIN_RANGE = 1
-MAX_RANGE = 45
+MIN_NUMBER = 1
+MAX_NUMBER = 45
+NUMBERS_PER_PICK = 6
 
-pick_round = int(input("How many quick picks? "))
-for _ in range(pick_round):
-    ith_round = 0
-    random_numbers = []
-    while ith_round <= NUMBERS_PER_LINE:
-        random_number = random.randint(MIN_RANGE, MAX_RANGE)
-        if random_number not in random_numbers:
-            random_numbers.append(random_number)
-            ith_round += 1
-    print(" ".join([f"{number:2}" for number in sorted(random_numbers)]))
+def main():
+    """Ask the user how many quick selections they want to generate."""
+    number_of_picks = int(input("How many quick picks? "))
+    for i in range(number_of_picks):
+        quick_pick = generate_picks()
+        print(" ".join(f"{number:2}" for number in quick_pick))
+
+def generate_picks():
+    """Generate a list of numbers between the minimum and maximum values."""
+    quick_pick = []
+
+    while len(quick_pick) < NUMBERS_PER_PICK:
+        number = random.randint(MIN_NUMBER, MAX_NUMBER)
+
+        if number not in quick_pick:
+            quick_pick.append(number)
+
+    quick_pick.sort()
+
+    return quick_pick
+
+main()
