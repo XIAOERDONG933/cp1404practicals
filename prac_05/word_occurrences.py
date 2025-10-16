@@ -1,19 +1,30 @@
 """
 Word Occurrences
-Estimate: 20 minutes
-Actual:   27 minutes
+Estimate: 15 minutes
+Actual:   32 minutes
 """
+import string
 
-input_text = input("Text: ")
-words = input_text.split()
-word_to_count = {}
-for word in words:
-    if word not in word_to_count:
-        word_to_count[word] = 1
-    else:
-        word_to_count[word] += 1
+def main():
+    """Receive user input text, count the number of times, and format the output."""
+    text = input("Text: ")
+    word_counts = count_word_occurrences(text)
 
-sorted_word_to_count = sorted(word_to_count.items(), key=lambda x: x[0])
-max_word_length = max([len(word) for word in word_to_count.keys()])
-for word, count in sorted_word_to_count:
-    print(f"{word:{max_word_length}} : {count}")
+    sorted_words = sorted(word_counts.keys())
+    max_length = max(len(word) for word in sorted_words)
+
+    for word in sorted_words:
+        print(f"{word:{max_length}} : {word_counts[word]}")
+
+def count_word_occurrences(text):
+    """Count the occurrences of words in a string."""
+    text = text.lower().translate(str.maketrans('', '', string.punctuation))
+    words = text.split()
+    word_counts = {}
+
+    for word in words:
+        word_counts[word] = word_counts.get(word, 0) + 1
+
+    return word_counts
+
+main()
