@@ -1,52 +1,50 @@
 """
 Wimbledon
-Estimate: 20 minutes
-Actual:   32 minutes
+Estimate: 60 minutes
+Actual:   112 minutes
 """
-
 FILENAME = "wimbledon.csv"
-INDEX_CHAMPION = 2
-INDEX_CHAMPION_COUNTRY = 1
 
 def main():
-    data = load_data()
-    champion_to_count, countries = process_data(data)
-    display_information(champion_to_count, countries)
+    champions, countries = read_wimbledon_data(FILENAME)
+    champion_wins = count_champions(champions)
+    display_results(champion_wins, countries)
 
-def load_data():
-    """Load data from the file"""
-    data = []
-    with open(FILENAME, "r", encoding="utf-8-sig") as in_file:
-        lines = in_file.readlines()[1:]
-        for line in lines:
-            record = line.strip().split(",")
-            data.append(record)
-        return data
-
-
-def process_data(data):
-    """Process the data"""
-    champion_to_count = {}
+def read_wimbledon_data(filename):
+    """Read and extract champion data from the Wimbledon CSV file."""
+    champions = []
     countries = set()
-    for record in data:
-        champion = record[INDEX_CHAMPION]
-        # if champion not in champions_to_count:
-        #     champions_to_count[champion] = 1
-        # else:
-        #     champions_to_count[champion] += 1
-        champion_to_count[champion] = champion_to_count.get(champion, 0) + 1
-        countries.add(record[INDEX_CHAMPION_COUNTRY])
-    return champion_to_count, countries
+
+    with open(filename, "r", encoding="utf-8-sig") as in_file:
+        in_file.readline()
+        for line in in_file:
+            parts = line.strip().split(",")
+            country = parts[1]
+            champion = parts[2]
+
+            champions.append(champion)
+            countries.add(country)
+
+    return champions, countries
 
 
-def display_information(champion_to_count, countries):
-    """Display the information"""
-    print("Wimbledon Champions: ")
-    for champion, count in champion_to_count.items():
-        print(f"{champion} {count}")
-    print()
-    print(f"These {len(countries)} countries have won Wimbledon: ")
+def count_champions(champions):
+    """Count the number of times each player has won Wimbledon."""
+    champion_wins = {}
+    for champion in champions:
+        champion_wins[champion] = champion_wins.get(champion, 0) + 1
+    return champion_wins
+
+
+def display_results(champion_wins, countries):
+    """Display the results in the required format."""
+    print("Wimbledon Champions:")
+    for champion, wins in sorted(champion_wins.items()):
+        print(f"{champion} {wins}")
+
+    print("\nThese", len(countries), "countries have won Wimbledon:")
     print(", ".join(sorted(countries)))
+
 
 
 
