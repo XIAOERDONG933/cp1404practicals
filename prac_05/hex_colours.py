@@ -1,14 +1,12 @@
-COLOR_TO_CODE = {"Aqua": "#00ffff", "Absolute Zero": "#0048ba",
-                 "Acid Green": "#b0bf1a", "Amaranth": "#e52b50",
-                 "Baby Pink": "#f4c2c2", "Bright Green": "#66ff00",
-                 "Cadmium Yellow": "#fff600", "Carolina Blue": "#56a0d3",
-                 "Cornsilk1": "#fff8dc", "DodgerBlue1": "#1e90ff"}
-COLOR_TO_CODE = {color.lower(): code for color, code in COLOR_TO_CODE.items()}
+COLOR_TO_HEX = {"AbsoluteZero": "#0048ba", "AcidGreen": "#b0bf1a", "AliceBlue": "#f0f8ff", "Amaranth": "#e52b50",
+                "Aqua": "#00ffff", "Aureolin": "#fdee00", "Beaver": "#9f8170", "BlueViolet": "#8a2be2",
+                "BrightGreen": "#66ff00", "Bronze": "#cd7f32"}
 
-color = input("Enter a color name: ").lower()
-while color != "":
-    if color in COLOR_TO_CODE:
-        print(COLOR_TO_CODE[color])
-    else:
+color_name = input("Please enter color name: ").strip()
+
+while color_name:
+    try:
+        print(f"{color_name} has hex code {COLOR_TO_HEX[color_name]}")
+    except KeyError:
         print("Invalid color name")
-    color = input("Enter a color name: ").lower()
+    color_name = input("Please enter name: ").strip()
