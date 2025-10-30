@@ -20,3 +20,7 @@ class Guitar:
     def __str__(self):
         """Return a string in f-string format"""
         return f"{self.name} ({self.year}) : ${self.cost:,.2f}"
+
+    def get_age(self):
+        """Return the current age."""
+        return CURRENT_YEAR - self.year
