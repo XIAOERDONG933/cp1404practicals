@@ -1,44 +1,44 @@
+"""CP1404/CP5632 Practical - Store all users' guitars and print them."""
 """
 Guitars
-Estimate: 10 minutes
-Actual:   20 minutes
+Estimate: 20 minutes
+Actual:   21 minutes
 """
-from guitar import Guitar
+
+from prac_06.guitar import Guitar
 
 def main():
-    print("My guitars!")
+    """Get and display guitars."""
+    guitars = get_guitars()
+
+    # guitars.append(Guitar("Gibson L-5 CES", 1922, 16035.40))
+    # guitars.append(Guitar("Line 6 JTV-59", 2010, 1512.9))
+
+    display_guitars(guitars)
+
+def get_guitars():
+    """Get a list of guitars from user input."""
     guitars = []
-    guitar = get_guitar_info()
-    while guitar is not None:
-        guitars.append(guitar)
-        display_guitar_info(guitar)
-        guitar = get_guitar_info()
-    display_total_guitars(guitars)
-
-
-def get_guitar_info():
-    """Get guitar info"""
+    print("My guitars!")
     name = input("Name: ")
-    if name == "":
-        return None
-    year = int(input("Year: "))
-    cost = float(input("Cost: $"))
-    new_guitar = Guitar(name, year, cost)
-    return new_guitar
+
+    while name != "":
+        year = int(input("Year: "))
+        cost = float(input("Cost: $"))
+
+        guitar = Guitar(name, year, cost)
+        guitars.append(guitar)
+        print(f"{guitar} added.\n")
+        name = input("Name: ")
+
+    return guitars
 
 
-def display_guitar_info(guitar):
-    """Display guitar info"""
-    print(f"{guitar.name} ({guitar.year}): ${guitar.cost:.2f} added.\n")
-
-
-def display_total_guitars(guitars):
-    """Display total guitars"""
-    print("There are my guitars: ")
+def display_guitars(guitars):
+    """Display the list of guitars."""
+    print("These are my guitars:")
     for i, guitar in enumerate(guitars, 1):
         vintage_string = " (vintage)" if guitar.is_vintage() else ""
-        print(f"Guitar {i}: {guitar.name:>20} ({guitar.year}), "
-              f"worth ${guitar.cost:10,.2f}{vintage_string}")
-
+        print(f"Guitar {i}: {guitar.name:>20} ({guitar.year}), worth ${guitar.cost:10,.2f}{vintage_string}")
 
 main()
