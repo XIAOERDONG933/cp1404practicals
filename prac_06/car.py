@@ -29,3 +29,8 @@ class Car:
         else:
             self.fuel -= distance
         self._odometer += distance
+        return distance
+
+    def __str__(self):
+        """Return a string in f-string format"""
+        return f"{self.name}, fuel: {self.fuel}, odometer: {self._odometer}"
