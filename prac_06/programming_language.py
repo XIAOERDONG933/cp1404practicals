@@ -1,23 +1,24 @@
+"""CP1404/CP5632 Practical - ProgrammingLanguage class."""
 """
-Programming Language
-Estimate: 10 minutes
-Actual:   32 minutes
+Programming Languages
+Estimate: 20 minutes
+Actual:   10 minutes
 """
+
 class ProgrammingLanguage:
-    """Represents a programming language object"""
+    """Represent a programming language object."""
 
     def __init__(self, name, typing, reflection, year):
+        """Initialize a programming language instance."""
         self.name = name
         self.typing = typing
         self.reflection = reflection
         self.year = year
 
-    def is_dynamic(self):
-        """Determine if this programming language is dynamic"""
-        return self.typing == "Dynamic"
-
     def __str__(self):
-        """String representation of the programming language"""
-        return (f"{self.name}, {self.typing} Typing, "
-                f"Reflection={self.reflection}, "
-                f"First appeared in {self.year}")
+        """Return the formatted string representation of the programming language."""
+        return f"{self.name}, {self.typing} Typing, Reflection={self.reflection}, First appeared in {self.year}"
+
+    def is_dynamic(self):
+        """Return True if the language has dynamic typing, otherwise False."""
+        return self.typing.lower() == "dynamic"
