@@ -25,3 +25,15 @@ def main():
     print("\nFinal guitar list:")
     guitars.sort()
     display_guitars(guitars)
+
+    def load_guitars(filename):
+        """Load guitars from CSV file and return list of Guitar objects."""
+        guitars = []
+        try:
+            with open(filename, 'r') as in_file:
+                for line in in_file:
+                    name, year, cost = line.strip().split(',')
+                    guitars.append(Guitar(name, int(year), float(cost)))
+        except FileNotFoundError:
+            print(f"File {filename} not found. Starting with empty list.")
+        return guitars
