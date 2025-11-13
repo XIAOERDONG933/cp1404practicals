@@ -1,62 +1,102 @@
 """
-MyGuitars
-Estimate: 16 minutes
-Actual:   20 minutes
+CP1404/CP5632 Practical
+My Guitars
 """
-from prac_06.guitar import Guitar
-
+from prac_07.guitar import Guitar, CURRENT_YEAR
 
 FILENAME = "guitars.csv"
 
-
 def main():
-    """Main function to read and show guitars"""
-    guitars = read_data()
-    guitar = get_guitar_info()
-    while guitar is not None:
-        guitars.append(guitar)
-        guitar = get_guitar_info()
-    # guitars.sort()
-    display_data(guitars)
-    save_guitars(guitars)
+    """Main program to manage guitar collection."""
+    guitars = load_guitars(FILENAME)
+
+    print("\nOriginal guitar list:")
+    display_guitars(guitars)
+
+    guitars.sort()
+    print("\nSorted by year (oldest to newest):")
+    display_guitars(guitars)
+
+    print("\nEnter new guitars (blank name to finish)")
+    guitars = add_guitars_recursively(guitars)
+
+    save_guitars(FILENAME, guitars)
+
+    print("\nFinal guitar list:")
+    guitars.sort()
+    display_guitars(guitars)
 
 
-
-def read_data():
-    """Read data from guitars.csv"""
+def load_guitars(filename):
+    """Load guitars from CSV file and return list of Guitar objects."""
     guitars = []
-    in_file = open(FILENAME, "r")
-    for line in in_file:
-        parts = line.strip().split(",")
-        guitar = Guitar(parts[0], int(parts[1]), float(parts[2]))
-        guitars.append(guitar)
-    in_file.close()
+    try:
+        with open(filename, 'r') as in_file:
+            for line in in_file:
+                name, year, cost = line.strip().split(',')
+                guitars.append(Guitar(name, int(year), float(cost)))
+    except FileNotFoundError:
+        print(f"File {filename} not found. Starting with empty list.")
     return guitars
 
 
-def display_data(guitars):
-    """Display data from guitars"""
+def display_guitars(guitars):
+    """Display all guitars in the list."""
     for guitar in guitars:
         print(guitar)
 
 
-def get_guitar_info():
-    """Get guitar info"""
+
+def get_valid_year():
+    """Get a valid year from user."""
+    while True:
+        try:
+            year = int(input("Year: "))
+            if 0 <= year <= CURRENT_YEAR:
+                return year
+            else:
+                print(f"Invalid year. Must be between 0 and {CURRENT_YEAR}")
+        except ValueError:
+            print(f"Invalid year. Must be between 0 and {CURRENT_YEAR}")
+
+
+def get_valid_cost():
+    """Get a valid cost from user."""
+    while True:
+        try:
+            cost = float(input("Cost: $"))
+            if cost >= 0:
+                return cost
+            else:
+                print("Cost must be a positive number")
+        except ValueError:
+            print("Cost must be a positive number")
+
+
+def get_new_guitar():
+    """Get details for a new guitar from user."""
     name = input("Name: ")
-    if name == "":
+    if not name:
         return None
-    year = int(input("Year: "))
-    cost = float(input("Cost: $"))
-    new_guitar = Guitar(name, year, cost)
-    return new_guitar
-
-def save_guitars(guitars):
-    """Save guitar into the file"""
-    out_file = open(FILENAME, "w")
-    for guitar in guitars:
-        out_file.write(f"{guitar.name}, {guitar.year}, {guitar.cost}\n")
-    out_file.close()
+    year = get_valid_year()
+    cost = get_valid_cost()
+    return Guitar(name, year, cost)
 
 
+def add_guitars_recursively(guitars):
+    """Add new guitars to the list iteratively."""
+    while True:
+        new_guitar = get_new_guitar()
+        if new_guitar is None:
+            break
+        guitars.append(new_guitar)
+    return guitars
+
+
+def save_guitars(filename, guitars):
+    """Save all guitars to CSV file."""
+    with open(filename, 'w') as out_file:
+        for guitar in guitars:
+            out_file.write(f"{guitar.name},{guitar.year},{guitar.cost}\n")
 
 main()
