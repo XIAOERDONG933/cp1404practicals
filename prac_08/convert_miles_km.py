@@ -1,34 +1,41 @@
+"""
+CP1404/CP5632 Practical
+Kivy GUI program about MilesConverterApp
+"""
 from kivy.app import App
-from kivy.lang import Builder
 from kivy.properties import StringProperty
+from kivy.lang import Builder
 
-KM_PER_MILE = 1.60934
+MILES_TO_KM = 1.60934
 
-class ConvertMilesToKM(App):
-    output_message = StringProperty()
+class MilesConverterApp(App):
+    """Kivy App for converting miles to kilometres"""
+    output_text = StringProperty("0.0")
 
     def build(self):
+        """Build the Kivy app from the kv file"""
         self.title = "Convert Miles to Kilometres"
         self.root = Builder.load_file('convert_miles_km.kv')
         return self.root
 
-    def handle_convert(self,input_mile):
-        input_mile = self.get_valid_input_mile(input_mile)
-        result = input_mile * KM_PER_MILE
-        self.output_message = str(result)
+    def handle_calculate(self):
+        """Handle calculation and update output"""
+        value = self.get_validated_miles()
+        result = value * MILES_TO_KM
+        self.output_text = str(result)
 
-    def handle_increment(self,input_mile, increment):
-        input_mile = self.get_valid_input_mile(input_mile)
-        updated_mile = input_mile + increment
-        self.root.ids.input_mile.text = str(updated_mile)
-        self.handle_convert(updated_mile)
+    def handle_increment(self, change):
+        """Handle up/down button press and update values"""
+        value = self.get_validated_miles() + change
+        self.root.ids.input_miles.text = str(value)
+        self.handle_calculate()
 
-    @staticmethod
-    def get_valid_input_mile(input_mile):
+    def get_validated_miles(self):
+        """Validate and return miles input as float, return 0 if invalid"""
         try:
-            input_mile = float(input_mile)
+            value = float(self.root.ids.input_miles.text)
+            return value
         except ValueError:
-            input_mile = 0
-        return input_mile
+            return 0
 
-ConvertMilesToKM().run()
+MilesConverterApp().run()
