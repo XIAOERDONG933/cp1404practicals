@@ -1,18 +1,22 @@
+"""Band class for CP1404"""
+
 class Band:
-    """Represents a band"""
-    def __init__(self,name):
+    """Band class that contains a collection of musicians."""
+
+    def __init__(self, name=""):
+        """Initialise a Band with a name and empty musician collection."""
         self.name = name
         self.musicians = []
 
+    def __str__(self):
+        """Return a string representation of the Band."""
+        musician_str = ", ".join(str(musician) for musician in self.musicians)
+        return f"{self.name} ({musician_str})"
+
     def add(self, musician):
-        """Adds a musician to the band"""
+        """Add a musician to the band's collection."""
         self.musicians.append(musician)
 
     def play(self):
-        """Plays the band"""
-        for musician in self.musicians:
-            print(musician.play())
-
-    def __str__(self):
-        """String representation of the band"""
-        return f"{self.name} ({', '.join([str(musician) for musician in self.musicians])})"
+        """Return a string of all musicians playing their instruments."""
+        return "\n".join(musician.play() for musician in self.musicians)
