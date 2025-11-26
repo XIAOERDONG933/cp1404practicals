@@ -1,0 +1,2 @@
+# wiki.py
+import wikipedia
