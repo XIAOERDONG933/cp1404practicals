@@ -23,3 +23,20 @@ def is_long_word(word, length=5):
     True
     """
     return len(word) >= length
+
+def format_as_sentence(phrase):
+    """
+    Format the phrase as a sentence: start with a capital letter and end with a single full stop.
+    >>> format_as_sentence('hello')
+    'Hello.'
+    >>> format_as_sentence('It is an ex parrot.')
+    'It is an ex parrot.'
+    >>> format_as_sentence('python code')
+    'Python code.'
+    """
+    phrase = phrase.strip()
+    if phrase:
+        phrase = phrase[0].upper() + phrase[1:]
+        if not phrase.endswith('.'):
+            phrase += '.'
+    return phrase
