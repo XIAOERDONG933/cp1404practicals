@@ -40,3 +40,20 @@ def format_as_sentence(phrase):
         if not phrase.endswith('.'):
             phrase += '.'
     return phrase
+
+def run_tests():
+    """Run the tests on the functions."""
+    assert repeat_string("Python", 1) == "Python"
+    assert repeat_string("hi", 2) == "hi hi"
+
+    car = Car("Test Car")
+    assert car._odometer == 0, "Car does not set odometer correctly"
+    assert car.fuel == 0, "Car does not set fuel to default correctly"
+
+    car = Car("Test Car", fuel=10)
+    assert car.fuel == 10, "Car does not set fuel correctly when specified"
+
+
+run_tests()
+
+doctest.testmod()
